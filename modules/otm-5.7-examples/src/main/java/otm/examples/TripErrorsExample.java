@@ -1,19 +1,45 @@
 package otm.examples;
 
-import otm.model.entities.*;
-import otm.profile.profiles.cbs.CbsProfileValidator;
-import otm.profile.validation.ValidationResult;
-import otm.serializer.IOtmSerializer;
-import otm.serializer.OtmSerializer;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import otm.profile.profiles.cbs.CbsProfileValidator;
+import otm.profile.validation.ValidationResult;
+import otm.serializer.IOtmSerializer;
+import otm.serializer.OtmSerializer;
+import otm.v5_7.model.ActionsInline;
+import otm.v5_7.model.Actor;
+import otm.v5_7.model.Actor.EntityTypeEnum;
+import otm.v5_7.model.ActorCompany;
+import otm.v5_7.model.ActorsReference;
+import otm.v5_7.model.AddressGeoReference;
+import otm.v5_7.model.AssociatedActorsInline;
+import otm.v5_7.model.AssociatedActorsInline.RolesEnum;
+import otm.v5_7.model.AssociatedLocations;
+import otm.v5_7.model.AssociatedLocationsInline;
+import otm.v5_7.model.AssociationsActions;
+import otm.v5_7.model.AverageFuelConsumption;
+import otm.v5_7.model.ContactDetails;
+import otm.v5_7.model.Email;
+import otm.v5_7.model.Email.TypeEnum;
+import otm.v5_7.model.LocationsReference;
+import otm.v5_7.model.Stop;
+import otm.v5_7.model.Stop.ActionTypeEnum;
+import otm.v5_7.model.Stop.LifecycleEnum;
+import otm.v5_7.model.StopInEventsLocation;
+import otm.v5_7.model.StopLocation;
+import otm.v5_7.model.StopLocationInline;
+import otm.v5_7.model.Trip;
+import otm.v5_7.model.Trip.StatusEnum;
+import otm.v5_7.model.Trip.TransportModeEnum;
+import otm.v5_7.model.VehicleAssociation;
+import otm.v5_7.model.VehicleAssociationInline;
+import otm.v5_7.model.VehicleAssociationInline.AssociationTypeEnum;
 
 
 /**
@@ -25,74 +51,89 @@ public class TripErrorsExample {
         // Build a Trip
         Trip trip = new Trip();
         trip.setId(UUID.randomUUID().toString());
-        trip.setStatus(TripStatus.COMPLETED);
-        trip.setTransportMode(TransportMode.ROAD);
-        trip.setEntityType(EntityType.TRIP);
+        trip.setStatus(StatusEnum.COMPLETED);
+        trip.setTransportMode(TransportModeEnum.ROAD);
         trip.setName("Trip with errors");
 
         // Vehicle object creation, but we forget to set the vehicle
-        InlineAssociationType<Vehicle> vehicleAssociation = new InlineAssociationType<>();
-        // Vehicle vehicle = new Vehicle();
-        // vehicle.setId(UUID.randomUUID());
-        // vehicle.setVehicleType("truck");
-        // vehicle.setAverageFuelConsumption(UnitWithValue.create(32.5, "l/100km"));
-        // vehicleAssociation.setEntity(vehicle);
-        trip.setVehicle(vehicleAssociation);
+        VehicleAssociation vehicle = new VehicleAssociation();
+        vehicle.setId("a2a0925f-3ad5-4d01-a00a-4031b0e54e09");
+        vehicle.setVehicleType("truck");
+        vehicle.setLicensePlate("NL-01-AB");
+        vehicle.setAverageFuelConsumption(new AverageFuelConsumption(32.5, "l/100km"));
+
+        VehicleAssociationInline vehicleAssociationInline = VehicleAssociationInline.builder()
+            .associationType(AssociationTypeEnum.INLINE)
+            //.entity(vehicle) // forget to set entity on purpose
+            .build();
+
+        trip.setVehicle(vehicleAssociationInline);
 
         // Actors list creation and population
-        List<InlineAssociationActorType> actors = new ArrayList<>();
-        InlineAssociationActorType actorAssociation = new InlineAssociationActorType();
+        ActorCompany actor = new ActorCompany();
+        actor.setId("2f86b0c6-383f-40da-9de0-167b26450303");
+        actor.setName("Logistics BV");
+        actor.setType(Actor.TypeEnum.COMPANY);
+        actor.setEntityType(EntityTypeEnum.ACTOR);
 
-        List<String> roles = new ArrayList<>();
-        roles.add("carrier");
-        actorAssociation.setRoles(roles);
-
-        Actor actor = new Actor();
-        actor.setId(UUID.randomUUID().toString());
-
-        List<ContactDetail> contactDetails = new ArrayList<>();
-        ContactDetail emailDetail = new ContactDetail();
-        emailDetail.setType(ContactDetailType.EMAIL);
+        List<ContactDetails> contactDetails = new ArrayList<>();
+        Email emailDetail = new Email();
+        emailDetail.setType(TypeEnum.EMAIL);
         emailDetail.setValue("info@logistics.nl");
         contactDetails.add(emailDetail);
         actor.setContactDetails(contactDetails);
 
-        List<InlineAssociationType<Location>> locations = new ArrayList<>();
-        InlineAssociationType<Location> locationAssociation = new InlineAssociationType<>();
-        Location location = new Location();
+        AssociatedLocations location = new AssociatedLocations();
         AddressGeoReference addressGeoReference = new AddressGeoReference();
         addressGeoReference.setStreet("Prinsengracht");
         addressGeoReference.setHouseNumber("263");
         addressGeoReference.setPostalCode("1016 XP");
         addressGeoReference.setCity("Amsterdam");
         addressGeoReference.setCountry("NL");
+        addressGeoReference.setType(AddressGeoReference.TypeEnum.ADDRESS_GEO_REFERENCE);
         location.setGeoReference(addressGeoReference);
-        locationAssociation.setEntity(location);
-        locations.add(locationAssociation);
-        actor.setLocations(locations);
-        actorAssociation.setEntity(actor);
-        actors.add(actorAssociation);
-        trip.setActors(actors.toArray(new InlineAssociationActorType[0]));
+
+        LocationsReference locationsRef = AssociatedLocationsInline.builder()
+            .associationType(AssociatedLocationsInline.AssociationTypeEnum.INLINE)
+            .entity(location)
+            .build();
+        actor.setLocations(List.of(locationsRef));
+
+        AssociatedActorsInline inlineActor = AssociatedActorsInline.builder()
+            .associationType(AssociatedActorsInline.AssociationTypeEnum.INLINE)
+            .roles(List.of(RolesEnum.CARRIER))
+            .entity(actor)
+            .build();
+
+        List<ActorsReference> actorsReferences = new ArrayList<>();
+        actorsReferences.add(inlineActor);
+        trip.setActors(actorsReferences);
 
         // Actions list creation and population
-        List<InlineAssociationType<StopAction>> actions = new ArrayList<>();
-        InlineAssociationType<StopAction> stopActionAssociation = new InlineAssociationType<>();
-        StopAction stopAction = new StopAction();
-        stopAction.setId(UUID.randomUUID().toString());
-        stopAction.setActionType(ActionType.ATTACH_TRANSPORT_EQUIPMENT);
-        stopAction.setLifecycle(Lifecycle.ACTUAL);
-        stopAction.setEndTime(Date.from(Instant.now().plusSeconds(900)));
+        Stop stopAction = new Stop();
+        stopAction.setId("ff3251c5-dd40-4a1f-9abd-0fd0205fd2aa");
+        stopAction.setActionType(ActionTypeEnum.STOP);
+        stopAction.setLifecycle(LifecycleEnum.ACTUAL);
+        stopAction.setEndTime(Instant.now().plusSeconds(900).toString());
 
-        InlineAssociationType<Location> stopLocationAssociation = new InlineAssociationType<>();
-        Location stopLocation = new Location();
+        StopLocation stopLocation = new StopLocation();
         stopLocation.setName("Warehouse Amsterdam");
-        stopLocation.setType(LocationType.CUSTOMER);
-        stopLocationAssociation.setEntity(stopLocation);
-        stopAction.setLocation(stopLocationAssociation);
-        stopActionAssociation.setEntity(stopAction);
-        actions.add(stopActionAssociation);
-        trip.setActions(actions.toArray(new InlineAssociationType[0]));
+        stopLocation.setType(StopLocation.TypeEnum.CUSTOMER);
 
+        StopInEventsLocation stopLocationAssociation = StopLocationInline.builder()
+            .associationType(StopLocationInline.AssociationTypeEnum.INLINE)
+            .entity(stopLocation)
+            .build();
+        stopAction.setLocation(stopLocationAssociation);
+
+        ActionsInline inlineAction = ActionsInline.builder()
+            .associationType(ActionsInline.AssociationTypeEnum.INLINE)
+            .entity(stopAction)
+            .build();
+
+        List<AssociationsActions> actions = new ArrayList<>();
+        actions.add(inlineAction);
+        trip.setActions(actions);
 
         // Optional: serialize trip
         IOtmSerializer serializer = new OtmSerializer();
@@ -130,15 +171,15 @@ public class TripErrorsExample {
         System.out.println("Fixing errors...");
 
         // Fix Vehicle error
-        Vehicle newVehicle = new Vehicle();
+        VehicleAssociation newVehicle = new VehicleAssociation();
         newVehicle.setId(String.valueOf(UUID.randomUUID()));
         newVehicle.setVehicleType("truck");
-        newVehicle.setAverageFuelConsumption(UnitWithValue.create(32.5, "l/100km"));
-        trip.getVehicle().setEntity(newVehicle);
+        newVehicle.setAverageFuelConsumption(new AverageFuelConsumption(32.5, "l/100km"));
+        ((VehicleAssociationInline)trip.getVehicle()).setEntity(newVehicle);
 
         // Fix Actor errors
-        trip.getActors()[0].getEntity().setName("Logistics BV");
-        trip.getActions()[0].getEntity().setStartTime(Date.from(Instant.now().plus(5, ChronoUnit.MINUTES)));
+        ((AssociatedActorsInline)trip.getActors().getFirst()).getEntity().setName("Logistics BV");
+        ((Stop)((ActionsInline)trip.getActions().getFirst()).getEntity()).setStartTime(Instant.now().plus(5, ChronoUnit.MINUTES).toString());
 
         trip.setName("");
 
@@ -152,7 +193,7 @@ public class TripErrorsExample {
         System.out.println("Still forgot to fix all errors");
         System.out.println("Fixing errors last errors ...");
         // Still forgot to resolve some parts of the error
-        trip.getVehicle().getEntity().setLicensePlate("NL-01-AB");
+        ((VehicleAssociationInline)trip.getVehicle()).getEntity().setLicensePlate("NL-01-AB");
 
         // Revalidate the trip
         validationResult = cbsProfileValidator.validate(trip);

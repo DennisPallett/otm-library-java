@@ -1,15 +1,15 @@
 package otm.examples;
 
-import otm.model.entities.Trip;
-import otm.model.entities.TripStatus;
-import otm.serializer.*;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
+import otm.serializer.IOtmSerializer;
+import otm.serializer.OtmSerializer;
+import otm.v5_7.model.Trip;
+import otm.v5_7.model.Trip.StatusEnum;
 
 public class Example {
     public static void main(String[] args) {
@@ -17,7 +17,7 @@ public class Example {
         Trip trip = new Trip();
         trip.setId(UUID.randomUUID().toString());
         trip.setName("Hello trip ;-D");
-        trip.setStatus(TripStatus.IN_TRANSIT);
+        trip.setStatus(StatusEnum.IN_TRANSIT);
 
         // Initialize the serializer
         IOtmSerializer serializer = new OtmSerializer();

@@ -11,7 +11,7 @@
 
     <artifactId>otm-toolkit-otm-5.7-examples</artifactId>
 
-    <name>OTM Toolkit - OTM v5.7 examples</name>
+    <name>OTM Toolkit - OTM v5.7 Examples</name>
     <description>Examples of using the toolkit for version 5.7 of OpenTripModel</description>
 
     <dependencies>

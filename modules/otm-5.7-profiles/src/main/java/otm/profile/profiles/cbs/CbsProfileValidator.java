@@ -1,16 +1,16 @@
 package otm.profile.profiles.cbs;
 
-import com.networknt.schema.*;
-import otm.model.entities.Trip;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.networknt.schema.JsonSchema;
+import com.networknt.schema.ValidationMessage;
+import java.io.IOException;
+import java.util.Set;
 import otm.profile.profiles.IProfileValidator;
 import otm.profile.profiles.cbs.schema.CbsProfileProvider;
 import otm.profile.validation.ValidationResult;
 import otm.serializer.OtmSerializer;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.IOException;
-import java.util.Set;
+import otm.v5_7.model.Trip;
 
 
 public class CbsProfileValidator implements IProfileValidator<Trip> { // Using placeholder Trip for OpenTripModel.v5.Trip

@@ -78,6 +78,7 @@
                     <typeMapping>ActorCompanyAllOfActors=ActorsReference</typeMapping>
                     <typeMapping>ActorCompanyAllOfHeadoffice=LocationsReference</typeMapping>
                     <typeMapping>ActorContactDetailsOneOf=ContactDetails</typeMapping>
+                    <typeMapping>ActorLocationsOneOf=LocationsReference</typeMapping>
                   </typeMappings>
                   <modelNameMappings>
                     <!-- map model types to alternative name to avoid collision with auto-generated interfaces -->

@@ -1,8 +1,8 @@
 package otm.profile.profiles.transportorder;
 
-import otm.model.entities.TransportOrder;
 import otm.profile.profiles.IProfileValidator;
 import otm.profile.validation.ValidationResult;
+import otm.v5_7.model.TransportOrder;
 
 /**
  * Validates a TransportOrder entity against the default completeness rules.

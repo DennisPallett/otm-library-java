@@ -3,8 +3,8 @@ package otm.profile.profiles.cbs;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import otm.BaseTest;
-import otm.model.entities.*;
 import otm.profile.validation.ValidationResult;
+import otm.v5_7.model.VehicleAssociationInline;
 
 
 @DisplayName("CBS profile validator test")
@@ -26,14 +26,14 @@ public class CbsProfileValidatorTest extends BaseTest {
         trip.setName(null);
 
         // force an error into the trip
-        trip.getVehicle().getEntity().setLicensePlate("");
+        ((VehicleAssociationInline) trip.getVehicle()).getEntity().setLicensePlate("");
 
         ValidationResult validationResult = cbsProfileValidator.validate(trip);
 
         assert !validationResult.isValid();
 
         // fix the forced error in the trip
-        trip.getVehicle().getEntity().setLicensePlate("NL-01-AB");
+        ((VehicleAssociationInline) trip.getVehicle()).getEntity().setLicensePlate("NL-01-AB");
 
         validationResult = cbsProfileValidator.validate(trip);
 

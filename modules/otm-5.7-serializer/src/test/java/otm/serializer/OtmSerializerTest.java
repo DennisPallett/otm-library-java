@@ -1,28 +1,37 @@
 package otm.serializer;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import otm.BaseTest;
-import otm.model.entities.Trip;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import otm.BaseTest;
+import otm.v5_7.model.Trip;
 
 @DisplayName("OTM serializer test")
 public class OtmSerializerTest extends BaseTest {
     static ZoneId utc = ZoneId.of("UTC");
     static ZonedDateTime zonedDateTimeStart = START_TIME.atZone(utc);
     static ZonedDateTime zonedDateTimeEnd = END_TIME.atZone(utc);
-    static String formattedStartDate = zonedDateTimeStart.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
-    static String formattedEndDate = zonedDateTimeEnd.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+    static String formattedStartDate = zonedDateTimeStart.format(DateTimeFormatter.ISO_INSTANT);
+    static String formattedEndDate = zonedDateTimeEnd.format(DateTimeFormatter.ISO_INSTANT);
 
     private final static String TRIP_JSON =  """
                 {
+                  "entityType" : "trip",
                   "id" : "baa6e209-2b2b-4f35-86e1-dd229ca839e4",
                   "name" : "Trip with errors",
                   "status" : "completed",
@@ -33,8 +42,8 @@ public class OtmSerializerTest extends BaseTest {
                       "id" : "a2a0925f-3ad5-4d01-a00a-4031b0e54e09",
                       "vehicleType" : "truck",
                       "averageFuelConsumption" : {
-                        "unit" : "l/100km",
-                        "value" : 32.5
+                        "value" : 32.5,
+                        "unit" : "l/100km"
                       },
                       "licensePlate" : "NL-01-AB"
                     }
@@ -42,6 +51,8 @@ public class OtmSerializerTest extends BaseTest {
                   "actors" : [ {
                     "associationType" : "inline",
                     "entity" : {
+                      "type" : "company",
+                      "entityType" : "actor",
                       "id" : "2f86b0c6-383f-40da-9de0-167b26450303",
                       "name" : "Logistics BV",
                       "contactDetails" : [ {
@@ -67,8 +78,8 @@ public class OtmSerializerTest extends BaseTest {
                   "actions" : [ {
                     "associationType" : "inline",
                     "entity" : {
-                      "id" : "ff3251c5-dd40-4a1f-9abd-0fd0205fd2aa",
                       "actionType" : "stop",
+                      "id" : "ff3251c5-dd40-4a1f-9abd-0fd0205fd2aa",
                       "lifecycle" : "actual",
                       "location" : {
                         "associationType" : "inline",
@@ -77,11 +88,11 @@ public class OtmSerializerTest extends BaseTest {
                           "type" : "customer"
                         }
                       },
+                      "timeFormat" : "dateTime",
                       "startTime" : "%s",
                       "endTime" : "%s"
                     }
-                  } ],
-                  "entityType" : "trip"
+                  } ]
                 }""".formatted(formattedStartDate, formattedEndDate);
 
     /*

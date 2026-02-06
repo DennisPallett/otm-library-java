@@ -11,7 +11,7 @@
 
     <artifactId>otm-toolkit-otm-5.7-serializer</artifactId>
 
-    <name>OTM Toolkit - OTM v5.7 serializer</name>
+    <name>OTM Toolkit - OTM v5.7 Serializer</name>
     <description>Serializer for version 5.7 of OpenTripModel</description>
 
     <dependencies>
