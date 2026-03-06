@@ -9,23 +9,23 @@
       <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>otm-toolkit-otm-5.7-examples</artifactId>
+    <artifactId>otm-toolkit-otm-5-examples</artifactId>
 
-    <name>OTM Toolkit - OTM v5.7 Examples</name>
-    <description>Examples of using the toolkit for version 5.7 of OpenTripModel</description>
+    <name>OTM Toolkit - OTM v5 Examples</name>
+    <description>Examples of using the toolkit for version 5 of OpenTripModel</description>
 
     <dependencies>
       <dependency>
         <groupId>org.opentripmodel</groupId>
-        <artifactId>otm-toolkit-otm-5.7</artifactId>
+        <artifactId>otm-toolkit-otm-5</artifactId>
       </dependency>
       <dependency>
         <groupId>org.opentripmodel</groupId>
-        <artifactId>otm-toolkit-otm-5.7-serializer</artifactId>
+        <artifactId>otm-toolkit-otm-5-serializer</artifactId>
       </dependency>
       <dependency>
         <groupId>org.opentripmodel</groupId>
-        <artifactId>otm-toolkit-otm-5.7-profiles</artifactId>
+        <artifactId>otm-toolkit-otm-5-profiles</artifactId>
       </dependency>
       <dependency>
           <groupId>org.junit.jupiter</groupId>

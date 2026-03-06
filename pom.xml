@@ -49,17 +49,17 @@
       <dependencies>
         <dependency>
           <groupId>org.opentripmodel</groupId>
-          <artifactId>otm-toolkit-otm-5.7</artifactId>
+          <artifactId>otm-toolkit-otm-5</artifactId>
           <version>${project.version}</version>
         </dependency>
         <dependency>
           <groupId>org.opentripmodel</groupId>
-          <artifactId>otm-toolkit-otm-5.7-serializer</artifactId>
+          <artifactId>otm-toolkit-otm-5-serializer</artifactId>
           <version>${project.version}</version>
         </dependency>
         <dependency>
           <groupId>org.opentripmodel</groupId>
-          <artifactId>otm-toolkit-otm-5.7-profiles</artifactId>
+          <artifactId>otm-toolkit-otm-5-profiles</artifactId>
           <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -154,9 +154,9 @@
     </build>
 
     <modules>
-      <module>modules/otm-5.7</module>
-      <module>modules/otm-5.7-examples</module>
-      <module>modules/otm-5.7-serializer</module>
-      <module>modules/otm-5.7-profiles</module>
+      <module>modules/otm-5</module>
+      <module>modules/otm-5-examples</module>
+      <module>modules/otm-5-serializer</module>
+      <module>modules/otm-5-profiles</module>
     </modules>
 </project>

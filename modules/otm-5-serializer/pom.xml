@@ -9,15 +9,15 @@
       <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>otm-toolkit-otm-5.7-serializer</artifactId>
+    <artifactId>otm-toolkit-otm-5-serializer</artifactId>
 
-    <name>OTM Toolkit - OTM v5.7 Serializer</name>
-    <description>Serializer for version 5.7 of OpenTripModel</description>
+    <name>OTM Toolkit - OTM v5 Serializer</name>
+    <description>Serializer for version 5 of OpenTripModel</description>
 
     <dependencies>
       <dependency>
         <groupId>org.opentripmodel</groupId>
-        <artifactId>otm-toolkit-otm-5.7</artifactId>
+        <artifactId>otm-toolkit-otm-5</artifactId>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
