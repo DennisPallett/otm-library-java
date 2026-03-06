@@ -8,8 +8,8 @@ import java.nio.file.Paths;
 import java.util.UUID;
 import otm.serializer.IOtmSerializer;
 import otm.serializer.OtmSerializer;
-import otm.v5_7.model.Trip;
-import otm.v5_7.model.Trip.StatusEnum;
+import otm.v5.model.Trip;
+import otm.v5.model.Trip.StatusEnum;
 
 public class Example {
     public static void main(String[] args) {

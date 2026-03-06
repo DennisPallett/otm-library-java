@@ -1,23 +1,23 @@
-package otm.v5_7.helper;
+package otm.v5.helper;
 
 import java.util.List;
-import otm.v5_7.model.Actions;
-import otm.v5_7.model.ActionsInline;
-import otm.v5_7.model.Actor;
-import otm.v5_7.model.ActorsReference;
-import otm.v5_7.model.AssociatedActorsInline;
-import otm.v5_7.model.AssociatedActorsInline.RolesEnum;
-import otm.v5_7.model.AssociatedLocations;
-import otm.v5_7.model.AssociatedLocationsInline;
-import otm.v5_7.model.AssociationsActions;
-import otm.v5_7.model.LocationsReference;
-import otm.v5_7.model.StopInEventsLocation;
-import otm.v5_7.model.StopLocation;
-import otm.v5_7.model.StopLocationInline;
-import otm.v5_7.model.VehicleAssociation;
-import otm.v5_7.model.VehicleAssociationInline;
-import otm.v5_7.model.VehicleAssociationInline.AssociationTypeEnum;
-import otm.v5_7.model.VehiclesReference;
+import otm.v5.model.Actions;
+import otm.v5.model.ActionsInline;
+import otm.v5.model.Actor;
+import otm.v5.model.ActorsReference;
+import otm.v5.model.AssociatedActorsInline;
+import otm.v5.model.AssociatedActorsInline.RolesEnum;
+import otm.v5.model.AssociatedLocations;
+import otm.v5.model.AssociatedLocationsInline;
+import otm.v5.model.AssociationsActions;
+import otm.v5.model.LocationsReference;
+import otm.v5.model.StopInEventsLocation;
+import otm.v5.model.StopLocation;
+import otm.v5.model.StopLocationInline;
+import otm.v5.model.VehicleAssociation;
+import otm.v5.model.VehicleAssociationInline;
+import otm.v5.model.VehicleAssociationInline.AssociationTypeEnum;
+import otm.v5.model.VehiclesReference;
 
 /**
  * This is a helper class to enable easier use of inline associations

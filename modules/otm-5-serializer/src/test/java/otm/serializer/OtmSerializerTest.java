@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import otm.BaseTest;
-import otm.v5_7.model.Trip;
+import otm.v5.model.Trip;
 
 @DisplayName("OTM serializer test")
 public class OtmSerializerTest extends BaseTest {

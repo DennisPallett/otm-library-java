@@ -1,13 +1,13 @@
-package otm.v5_7.helper;
+package otm.v5.helper;
 
-import otm.v5_7.model.Actor;
-import otm.v5_7.model.Actor.EntityTypeEnum;
-import otm.v5_7.model.Actor.TypeEnum;
-import otm.v5_7.model.ActorCompany;
-import otm.v5_7.model.ActorPerson;
-import otm.v5_7.model.Stop;
-import otm.v5_7.model.Stop.ActionTypeEnum;
-import otm.v5_7.model.Trip;
+import otm.v5.model.Actor;
+import otm.v5.model.Actor.EntityTypeEnum;
+import otm.v5.model.Actor.TypeEnum;
+import otm.v5.model.ActorCompany;
+import otm.v5.model.ActorPerson;
+import otm.v5.model.Stop;
+import otm.v5.model.Stop.ActionTypeEnum;
+import otm.v5.model.Trip;
 
 /**
  * Helper class used create new OTM entities

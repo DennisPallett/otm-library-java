@@ -10,7 +10,7 @@ import otm.profile.profiles.IProfileValidator;
 import otm.profile.profiles.cbs.schema.CbsProfileProvider;
 import otm.profile.validation.ValidationResult;
 import otm.serializer.OtmSerializer;
-import otm.v5_7.model.Trip;
+import otm.v5.model.Trip;
 
 
 public class CbsProfileValidator implements IProfileValidator<Trip> { // Using placeholder Trip for OpenTripModel.v5.Trip

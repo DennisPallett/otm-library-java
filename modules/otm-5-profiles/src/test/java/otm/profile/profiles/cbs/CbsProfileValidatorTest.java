@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import otm.BaseTest;
 import otm.profile.validation.ValidationResult;
-import otm.v5_7.model.VehicleAssociationInline;
+import otm.v5.model.VehicleAssociationInline;
 
 
 @DisplayName("CBS profile validator test")
