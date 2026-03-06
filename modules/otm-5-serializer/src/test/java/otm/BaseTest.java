@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import otm.v5.helper.EntityFactory;
 import otm.v5.helper.InlineAssociation;
+import otm.v5.model.Actor;
 import otm.v5.model.ActorCompany;
 import otm.v5.model.AddressGeoReference;
 import otm.v5.model.AssociatedActorsInline.RolesEnum;
@@ -74,8 +75,13 @@ public class BaseTest {
             InlineAssociation.of(location)
         ));
 
+        Actor testActor = EntityFactory.createActor();
+        testActor.setId("222837a2-cc39-4fe8-8756-3d19d3db12f0");
+        testActor.setName("Test BV");
+
         trip.setActors(List.of(
-            InlineAssociation.of(actor, RolesEnum.CARRIER)
+            InlineAssociation.of(actor, RolesEnum.CARRIER),
+            InlineAssociation.of(testActor, RolesEnum.SUBCONTRACTOR)
         ));
 
         // Actions list creation and population

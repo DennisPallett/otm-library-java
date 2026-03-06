@@ -32,6 +32,12 @@ public class EntityFactory {
             .build();
     }
 
+    public static Actor createActor() {
+        return Actor.builder()
+            .entityType(EntityTypeEnum.ACTOR)
+            .build();
+    }
+
     public static Trip createTrip() {
         return Trip.builder()
             .entityType(Trip.EntityTypeEnum.TRIP)

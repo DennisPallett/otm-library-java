@@ -1,18 +1,15 @@
 package otm.serializer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.TimeZone;
+import otm.v5.model.Actor;
 
 
 public class OtmSerializer implements IOtmSerializer {
@@ -38,6 +35,12 @@ public class OtmSerializer implements IOtmSerializer {
 
         // Add custom module to object mapper
         this.objectMapper.registerModule(enumModule);
+
+        // Add Actor mix-in to support actor entity without type property (supported by OTM 5.6)
+        this.objectMapper.addMixIn(Actor.class, ActorMixIn.class);
+
+        // Add the ability to support actor entities without type
+        this.objectMapper.registerModule(new SupportActorWithoutTypeModule());
     }
 
     /**

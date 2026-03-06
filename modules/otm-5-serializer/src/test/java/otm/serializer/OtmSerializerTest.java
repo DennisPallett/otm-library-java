@@ -74,6 +74,14 @@ public class OtmSerializerTest extends BaseTest {
                       } ]
                     },
                     "roles" : [ "carrier" ]
+                  }, {
+                    "associationType" : "inline",
+                    "entity" : {
+                      "entityType" : "actor",
+                      "id" : "222837a2-cc39-4fe8-8756-3d19d3db12f0",
+                      "name" : "Test BV"
+                    },
+                    "roles" : [ "subcontractor" ]
                   } ],
                   "actions" : [ {
                     "associationType" : "inline",
